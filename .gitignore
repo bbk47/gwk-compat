@@ -1,0 +1,13 @@
+# compiled binaries / build artifacts produced by the harness
+.bin/
+lib/
+
+# node
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# scratch / OS
+*.log
+.DS_Store
+tmp/

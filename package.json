@@ -1,0 +1,35 @@
+{
+  "name": "@bbk47/gwk-compat",
+  "version": "0.1.0",
+  "description": "Cross-implementation E2E compatibility + stability harness for gwk (Go) and gwkjs (Node), validating hashicorp/yamux <-> @bbk47/yamux interop over real tunnels.",
+  "type": "module",
+  "bin": {
+    "gwk-compat": "run-compat.mjs"
+  },
+  "scripts": {
+    "compat": "node run-compat.mjs",
+    "compat:quick": "node run-compat.mjs --duration=10 --concurrency=20",
+    "compat:js": "node run-compat.mjs --matrix=js-js,go-js,js-go"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bbk47/gwk-compat.git"
+  },
+  "homepage": "https://github.com/bbk47/gwk-compat#readme",
+  "bugs": {
+    "url": "https://github.com/bbk47/gwk-compat/issues"
+  },
+  "keywords": [
+    "gwk",
+    "yamux",
+    "compatibility",
+    "e2e",
+    "tunnel",
+    "interop"
+  ],
+  "author": "bbk47",
+  "license": "ISC"
+}
