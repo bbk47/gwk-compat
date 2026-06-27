@@ -27,16 +27,12 @@ jobs:
         uses: actions/checkout@v4
         with:
           repository: haixuxu/gwk
-          # yamux migration lives on this branch until it lands on main
-          ref: bbk47-yamux
           path: gwk
 
       - name: Checkout gwkjs (Node)
         uses: actions/checkout@v4
         with:
           repository: haixuxu/gwkjs
-          # @bbk47/yamux migration lives on this branch until it lands on main
-          ref: bbk47-yamux
           path: gwkjs
 
       - name: Setup Go
