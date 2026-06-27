@@ -1,0 +1,60 @@
+name: compat
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      duration:
+        description: per-scenario load duration (seconds)
+        default: "10"
+      concurrency:
+        description: concurrent persistent connections
+        default: "20"
+      matrix:
+        description: scenario matrix
+        default: go-go,js-js,go-js,js-go
+
+jobs:
+  compat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout gwk-compat
+        uses: actions/checkout@v4
+
+      - name: Checkout gwk (Go)
+        uses: actions/checkout@v4
+        with:
+          repository: haixuxu/gwk
+          path: gwk
+
+      - name: Checkout gwkjs (Node)
+        uses: actions/checkout@v4
+        with:
+          repository: haixuxu/gwkjs
+          path: gwkjs
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "stable"
+          cache-dependency-path: gwk/go.sum
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install gwkjs deps
+        working-directory: gwkjs
+        run: npm install
+
+      - name: Run compatibility harness
+        env:
+          GWK_DIR: ${{ github.workspace }}/gwk
+          GWKJS_DIR: ${{ github.workspace }}/gwkjs
+          DURATION: ${{ github.event.inputs.duration || '10' }}
+          CONCURRENCY: ${{ github.event.inputs.concurrency || '20' }}
+          MATRIX: ${{ github.event.inputs.matrix || 'go-go,js-js,go-js,js-go' }}
+        run: node run-compat.mjs
